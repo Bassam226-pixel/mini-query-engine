@@ -1,0 +1,162 @@
+﻿============================================================
+File: data/users.parquet
+Size on disk: 55,085,001 bytes
+Total rows: 5,000,000
+Row groups: 10
+Created by: parquet-cpp-arrow version 25.0.1
+
+Schema:
+id: int64
+name: string
+age: int8
+city: string
+
+------------------------------------------------------------
+Row group 0: 500,000 rows, 12,446,008 bytes
+  id       compressed= 2,273,849  uncompressed= 4,272,637  ratio=1.9x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=1  max=500000  nulls=0  distinct=None
+  name     compressed= 2,626,170  uncompressed= 7,543,009  ratio=2.9x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=user_1  max=user_99999  nulls=0  distinct=None
+  age      compressed=   377,947  uncompressed=   377,818  ratio=1.0x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=18  max=80  nulls=0  distinct=None
+  city     compressed=   252,666  uncompressed=   252,544  ratio=1.0x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=Alexandria  max=Tanta  nulls=0  distinct=None
+
+------------------------------------------------------------
+Row group 1: 500,000 rows, 12,544,065 bytes
+  id       compressed= 2,273,857  uncompressed= 4,272,637  ratio=1.9x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=500001  max=1000000  nulls=0  distinct=None
+  name     compressed= 2,606,725  uncompressed= 7,641,066  ratio=2.9x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=user_1000000  max=user_999999  nulls=0  distinct=None
+  age      compressed=   377,947  uncompressed=   377,818  ratio=1.0x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=18  max=80  nulls=0  distinct=None
+  city     compressed=   252,665  uncompressed=   252,544  ratio=1.0x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=Alexandria  max=Tanta  nulls=0  distinct=None
+
+------------------------------------------------------------
+Row group 2: 500,000 rows, 13,035,401 bytes
+  id       compressed= 2,273,852  uncompressed= 4,272,637  ratio=1.9x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=1000001  max=1500000  nulls=0  distinct=None
+  name     compressed= 2,600,208  uncompressed= 8,132,402  ratio=3.1x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=user_1000001  max=user_1500000  nulls=0  distinct=None
+  age      compressed=   377,947  uncompressed=   377,818  ratio=1.0x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=18  max=80  nulls=0  distinct=None
+  city     compressed=   252,667  uncompressed=   252,544  ratio=1.0x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=Alexandria  max=Tanta  nulls=0  distinct=None
+
+------------------------------------------------------------
+Row group 3: 500,000 rows, 13,035,401 bytes
+  id       compressed= 2,273,870  uncompressed= 4,272,637  ratio=1.9x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=1500001  max=2000000  nulls=0  distinct=None
+  name     compressed= 2,600,222  uncompressed= 8,132,402  ratio=3.1x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=user_1500001  max=user_2000000  nulls=0  distinct=None
+  age      compressed=   377,947  uncompressed=   377,818  ratio=1.0x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=18  max=80  nulls=0  distinct=None
+  city     compressed=   252,666  uncompressed=   252,544  ratio=1.0x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=Alexandria  max=Tanta  nulls=0  distinct=None
+
+------------------------------------------------------------
+Row group 4: 500,000 rows, 13,035,401 bytes
+  id       compressed= 2,274,383  uncompressed= 4,272,637  ratio=1.9x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=2000001  max=2500000  nulls=0  distinct=None
+  name     compressed= 2,600,193  uncompressed= 8,132,402  ratio=3.1x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=user_2000001  max=user_2500000  nulls=0  distinct=None
+  age      compressed=   377,947  uncompressed=   377,818  ratio=1.0x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=18  max=80  nulls=0  distinct=None
+  city     compressed=   252,672  uncompressed=   252,544  ratio=1.0x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=Alexandria  max=Tanta  nulls=0  distinct=None
+
+------------------------------------------------------------
+Row group 5: 500,000 rows, 13,035,401 bytes
+  id       compressed= 2,273,861  uncompressed= 4,272,637  ratio=1.9x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=2500001  max=3000000  nulls=0  distinct=None
+  name     compressed= 2,600,227  uncompressed= 8,132,402  ratio=3.1x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=user_2500001  max=user_3000000  nulls=0  distinct=None
+  age      compressed=   377,947  uncompressed=   377,818  ratio=1.0x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=18  max=80  nulls=0  distinct=None
+  city     compressed=   252,667  uncompressed=   252,544  ratio=1.0x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=Alexandria  max=Tanta  nulls=0  distinct=None
+
+------------------------------------------------------------
+Row group 6: 500,000 rows, 13,035,401 bytes
+  id       compressed= 2,273,877  uncompressed= 4,272,637  ratio=1.9x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=3000001  max=3500000  nulls=0  distinct=None
+  name     compressed= 2,600,211  uncompressed= 8,132,402  ratio=3.1x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=user_3000001  max=user_3500000  nulls=0  distinct=None
+  age      compressed=   377,947  uncompressed=   377,818  ratio=1.0x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=18  max=80  nulls=0  distinct=None
+  city     compressed=   252,666  uncompressed=   252,544  ratio=1.0x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=Alexandria  max=Tanta  nulls=0  distinct=None
+
+------------------------------------------------------------
+Row group 7: 500,000 rows, 13,035,401 bytes
+  id       compressed= 2,273,862  uncompressed= 4,272,637  ratio=1.9x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=3500001  max=4000000  nulls=0  distinct=None
+  name     compressed= 2,600,243  uncompressed= 8,132,402  ratio=3.1x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=user_3500001  max=user_4000000  nulls=0  distinct=None
+  age      compressed=   377,947  uncompressed=   377,818  ratio=1.0x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=18  max=80  nulls=0  distinct=None
+  city     compressed=   252,667  uncompressed=   252,544  ratio=1.0x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=Alexandria  max=Tanta  nulls=0  distinct=None
+
+------------------------------------------------------------
+Row group 8: 500,000 rows, 13,035,401 bytes
+  id       compressed= 2,273,862  uncompressed= 4,272,637  ratio=1.9x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=4000001  max=4500000  nulls=0  distinct=None
+  name     compressed= 2,600,225  uncompressed= 8,132,402  ratio=3.1x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=user_4000001  max=user_4500000  nulls=0  distinct=None
+  age      compressed=   377,947  uncompressed=   377,818  ratio=1.0x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=18  max=80  nulls=0  distinct=None
+  city     compressed=   252,668  uncompressed=   252,544  ratio=1.0x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=Alexandria  max=Tanta  nulls=0  distinct=None
+
+------------------------------------------------------------
+Row group 9: 500,000 rows, 13,035,401 bytes
+  id       compressed= 2,273,853  uncompressed= 4,272,637  ratio=1.9x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=4500001  max=5000000  nulls=0  distinct=None
+  name     compressed= 2,600,217  uncompressed= 8,132,402  ratio=3.1x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=user_4500001  max=user_5000000  nulls=0  distinct=None
+  age      compressed=   377,947  uncompressed=   377,818  ratio=1.0x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=18  max=80  nulls=0  distinct=None
+  city     compressed=   252,665  uncompressed=   252,544  ratio=1.0x  codec=SNAPPY
+           encodings=('PLAIN', 'RLE', 'RLE_DICTIONARY')
+           min=Alexandria  max=Tanta  nulls=0  distinct=None
