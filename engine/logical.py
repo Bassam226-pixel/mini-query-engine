@@ -7,6 +7,7 @@ class ScanNode:
     path: str
     columns: Optional[List[str]] = None
     predicate: Optional[Tuple[str, object]] = None
+    dictionary_columns: Optional[List[str]] = None
 
 
 @dataclass
