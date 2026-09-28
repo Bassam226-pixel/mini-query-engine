@@ -136,3 +136,129 @@ integer and removed most of it.
 Known limitation: each row group carries its own dictionary, so partials
 are decoded to strings before the second stage. Proper dictionary
 unification would avoid this.
+
+
+## Day 5 — hash join, 5M build × 20M probe
+
+| Implementation | Time | vs best |
+|---|---|---|
+| Arrow Table.join per batch | 229.2 s | 43x |
+| pc.index_in per batch | 206.1 s | 39x |
+| Python dict, built once | 62.6 s | 12x |
+| Direct-address numpy array | 5.28 s | — |
+
+All four return 20,000,000 rows — every order matches exactly one user.
+
+Two independent costs. Rebuilding the lookup per batch (200 times)
+accounts for the gap between 229s and 62s. Per-row Python work on the
+probe side accounts for the gap between 62s and 5.28s.
+
+The first two implementations both rebuild per batch, which is why their
+times are close despite one having no Python loop. Vectorizing the probe
+while reintroducing the rebuild made things worse, not better — kept as
+a documented negative result.
+
+The final version exploits a property of this data: build keys are dense
+integers 1..5,000,000, so the lookup is an array index rather than a
+hash. Cost is 38.1 MB, or (max_key+1)*8 bytes. This does not generalize —
+sparse or non-integer keys need a real hash table.
+
+
+## Day 6 — grace hash join with spilling
+
+| Implementation | Time | Peak build rows in RAM |
+|---|---|---|
+| Direct-index, in-memory | 5.28 s | 5,000,000 |
+| Grace hash join, 16 partitions | 27.85 s | 312,500 |
+
+Both return 20,000,000 rows. 312.8 MB written to and read back from disk.
+
+This is not an optimization — it is 5.3x slower by design. It trades
+throughput for the ability to join a build side that does not fit in
+memory. Peak resident build rows drop 16x, which is the point.
+
+Build-side partitions came out exactly even (5M / 16 = 312,500) because
+`id` is a dense sequence and `id % 16` distributes it perfectly. That is
+a property of this data, not of the algorithm.
+
+Not yet handled: the operator always spills, even when the build side
+would fit. A hybrid hash join keeps the first partitions resident and
+only spills once a memory budget is exceeded.
+
+
+## Day 7 — partition skew
+
+Same join, same 16 partitions, two probe datasets.
+
+| Probe data | Largest partition | Share | max/min |
+|---|---|---|---|
+| 4.4M distinct users, top 5% hold 46% of orders | 1,252,111 | 6.26% | 1.00x |
+| one user id holding 40% of orders | 8,749,871 | 43.75% | 11.69x |
+
+Both return 20,000,000 rows — correctness is unaffected.
+
+The first dataset is genuinely skewed by distribution: 221,036 users
+account for 45.7% of orders, and the busiest single user has 70 of them.
+Partitioning absorbs it completely, because those 221,036 keys spread
+evenly across 16 buckets.
+
+The second is skewed on a single key. `7 % 16 = 7`, so all 8M of its rows
+must land in partition 7. No hash function avoids this — a single key has
+exactly one destination, and sending its rows elsewhere would break the
+equal-keys-same-partition property the algorithm depends on.
+
+Build side stays at ratio 1.00x in both cases: user 7 appears there
+exactly once. Skew is a property of key repetition within a side, not of
+table size.
+
+On one machine this shows up as elapsed time, since partitions run
+sequentially. On a 16-node cluster it would mean 15 nodes idle while one
+does 44% of the work.
+
+Key distribution in the uniform dataset (`diag_key_distribution.py`):
+
+| Slice | Share of orders |
+|---|---|
+| top 0.01% of users (442) | 0.1% |
+| top 0.1% (4,420) | 1.2% |
+| top 1% (44,207) | 10.9% |
+| top 5% (221,036) | 45.7% |
+
+4,420,726 of 5,000,000 users appear at all; the remaining ~580,000 have
+no orders. They sit in the build side and are never probed — invisible in
+an inner join, but they would surface as nulls in a left join.
+
+
+## Day 8 — comparison against DuckDB
+
+Identical queries, same measurement method (warm-up + median of 3),
+both consuming the full result. Row counts match DuckDB in every case.
+
+| Query | mine | duckdb | ratio |
+|---|---|---|---|
+| filter, sorted column | 0.041 s | 0.034 s | 1.2x |
+| select star, filtered | 0.342 s | 0.222 s | 1.5x |
+| filter, random column | 0.402 s | 0.224 s | 1.8x |
+| hash join, 5M × 20M | 4.083 s | 1.792 s | 2.3x |
+| group by, 10 groups | 0.210 s | 0.023 s | 9.1x |
+
+The first run of this comparison put group by at 126x. Two fixes closed
+it to 9.1x, and finding them is what the comparison was for.
+
+The planner was building `GroupBy` — the row-at-a-time baseline — not
+`GroupByVectorized`. The vectorized version had existed and been measured
+since day 4, but was never wired into the planner, so every end-to-end
+query had been running the slow path for two weeks.
+
+The second fix was a third optimizer rule: read string grouping keys as
+dictionaries. Unlike projection and predicate pushdown, this rule needs
+the file's schema rather than just the plan shape.
+
+Component benchmarks could not have caught the first problem — they
+measure operators in isolation, so they cannot reveal that the right
+operator is never reached. Only an end-to-end comparison against an
+external reference exposed it.
+
+Closest result is the statistics-pruned filter at 1.2x, where the
+optimization reduces work rather than speeding it up, so implementation
+language matters less.
